@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.item {
+			width: 50px;
+			height: 50px;
+			background-color: red;
+			display: inline-block;
+			*display:inline;
+			*zoom:1;
+		}
+	</style>
+</head>
+<!--
+	1. ie6不支持display:inline-block;
+		1. hack处理:*display：inline;zoom:1;
+-->
+<body>
+	<div class="item"></div>
+	<div class="item"></div>
+	<div class="item"></div>
+
+</body>
+
+</html>

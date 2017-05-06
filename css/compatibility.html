@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 500px;
+			margin: 0 auto;
+			border: 1px solid black;
+		}
+		.left{
+			float: left;
+			background-color: red;
+		}
+		.right{
+			float: right;
+			background-color: green;
+		}
+		h2{
+			margin: 0;
+			height: 30px;
+			/*处理ie6将父级撑大*/
+			float: left;
+		}
+	
+	</style>
+</head>
+<!--
+	1. 元素浮动之后,能设置宽度的话就给元素加宽度.如果需要宽度是内容撑开,就给它里边的块元素加上浮动;（浮动元素内有块级元素会出现把浮动元素给撑大）-ie6下，为块级元素设置高度后触发;
+	1. 给里面的块级元素加宽度；
+	2. 为里面的块级元素添加浮动
+
+-->
+<body>
+	<div class="box">
+		<div class="left">
+			<h2>左边的</h2>
+		</div>
+		<div class="right">
+			<h2>右边的</h2>
+		</div>
+	</div>	
+</body>
+</html>
