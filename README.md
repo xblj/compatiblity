@@ -31,17 +31,17 @@
 12. IE6/7 父级元素的overflow:hidden 是包不住子级的relative
 	1. 为父级添加：*position：relative;
 13. IE6下绝对定位元素父级宽高是奇数,绝对定位元素的right和bottom值会有1px的偏差
- 1. 避免父级宽高是奇数
+	1. 避免父级宽高是奇数
 14. IE6下绝对定位元素和浮动元素并列并浮动元素占据了全部宽度绝对定位元素消失
- 1. 不处于同级：嵌套一层
+	1. 不处于同级：嵌套一层
 15. IE6 下input的空隙
- 1. 给input 加：*float：left
+	1. 给input 加：*float：left
 16. IE6 下 输入类型表单控件有背景时，输入内容过多会使图片跑出去（输入的值会将背景顶出输入框：加上fixed）
 	1. background-image：fixed;
 17. ie6不支持png24
- 1. _background-image:none;
+	1. _background-image:none;
  _filter :progid:DXImageTransform.Microsoft.AlphaImageLoader(src="XX.png", sizingMethod="crop");
- 2. JS插件(问题:不能处理body之上png24)
+	 2. JS插件(问题:不能处理body之上png24)
 	DD_belatedPNG.fix('xxx');
 18. hack，注意书写顺序
 	1. \9 所有的IE10及之前 -写在样式的最后面
@@ -74,29 +74,29 @@
 		* IE9以上/DOM：获取节点个数三个（length=3）
 	+ 解决方案一：都用children，但是这个好像不是w3c的标准，不过所有浏览器都兼容
 	+ 解决方案二：
-		```
-		function getChildElem(elem){
-			var eles=[];
-			var allElem=elem.childNodes;
-			for(var i=0,len=allElem.lenght;i<len;i++){
-				if(allElem[i].nodeType===1){
-					eles.push(allElem[i]);
-				}
+	```
+	function getChildElem(elem){
+		var eles=[];
+		var allElem=elem.childNodes;
+		for(var i=0,len=allElem.lenght;i<len;i++){
+			if(allElem[i].nodeType===1){
+				eles.push(allElem[i]);
 			}
-			return eles;
 		}
+		return eles;
+	}
 
 		```
 4. 获取非行间样式：currentStyle/getComputedStyle
 	+ currentStyle: IE专属对象,全版本支持。  注意是对象，不是方法，调用时使用.或者[]而不是();
 	+ getComputedStyle:方法，返回样式列表。ie9及以上/DOM支持 window.getComputedStyle('elem','伪类')/window.defaultView.getComputedStyle('elem','伪类')；
 	+  兼容：
-		```
-			function getStyle(elem,style){
-				var getComputedStyle=window.getComputedStyle||window.defaultView.getComputedStyle;
-				return ele.currentStyle?ele.currentStyle[style]:ele.getComputedStyle(ele,null)[style];
-			}
-		```
+	```
+		function getStyle(elem,style){
+			var getComputedStyle=window.getComputedStyle||window.defaultView.getComputedStyle;
+			return ele.currentStyle?ele.currentStyle[style]:ele.getComputedStyle(ele,null)[style];
+		}
+	```
 5. 字符串索引：字符串类似数组，可以使用下标进行访问，但是IE6/7不支持
 	+ 兼容 使用charAt(i);
 6.  firstChild/firstElementChild、lastChild/lastElementChild、nextSibling/nextElementSibling、previousSibling/previousElementSibling;
@@ -104,42 +104,42 @@
 	+ IE9以上/DOM使用没有Element或获取文本节点。如果获取元素节点使用带有Element的属性
 	+ 兼容：
 	```
-		function getFirstChild(elem){
-			return elem.firstElementChild?elem.firstElementChild:elem.firstChild;
-		}
+	function getFirstChild(elem){
+		return elem.firstElementChild?elem.firstElementChild:elem.firstChild;
+	}
 
 	```
 7. 绑定事件函数addEventListener/attachEvent
 	+ attachEvent：IE6/7/8支持
 
 	```
-		var addEvent = (function () {
-			if (document.addEventListener) {
-				return function (el, type, fn) {
-					//处理传入的是元素集合
-					if (el.length) {
-						for (var i = 0; i < el.length; i++) {
-							addEvent(el[i], type, fn);
-						}
-					} else {
-						el.addEventListener(type, fn, false);
+	var addEvent = (function () {
+		if (document.addEventListener) {
+			return function (el, type, fn) {
+				//处理传入的是元素集合
+				if (el.length) {
+					for (var i = 0; i < el.length; i++) {
+						addEvent(el[i], type, fn);
 					}
-				};
-			} else {
-				return function (el, type, fn) {
-					if (el.length) {
-						for (var i = 0; i < el.length; i++) {
-							addEvent(el[i], type, fn);
-						}
-					} else {
-						el.attachEvent('on' + type, function () {
-							//attachEvent处理函数的内部this默认是指向windowj需要修复this指向当前触发的元素，并将时间对象event作为事件处理函数的第一个参数参数传入
-							return fn.call(el, window.event);
-						});
+				} else {
+					el.addEventListener(type, fn, false);
+				}
+			};
+		} else {
+			return function (el, type, fn) {
+				if (el.length) {
+					for (var i = 0; i < el.length; i++) {
+						addEvent(el[i], type, fn);
 					}
-				};
-			}
-		})();
+				} else {
+					el.attachEvent('on' + type, function () {
+						//attachEvent处理函数的内部this默认是指向windowj需要修复this指向当前触发的元素，并将时间对象event作为事件处理函数的第一个参数参数传入
+						return fn.call(el, window.event);
+					});
+				}
+			};
+		}
+	})();
 	```
 8. 滚动条距离scrollTop
 	+ IE/Chrome： document.body.scrollTop
